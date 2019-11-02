@@ -67,4 +67,26 @@ let join a b = merge a b
 
 
 (*---------------------TESTY---------------------*)
-;;
+let b = add "a" empty;;
+let b = add "aca" b;;
+let b = add "nzbzad" b;;
+let b = add "nzbza" b;;
+let b = add "bxbxc" b;;
+
+let (a,b) = delete_min b;;
+assert (a = "a");;
+
+let (a,b) = delete_min b;;
+assert (a = "aca");;
+
+let (a,b) = delete_min b;;
+assert (a = "bxbxc");;
+
+let (a,b) = delete_min b;;
+assert (a = "nzbza");;
+
+let (a,b) = delete_min b;;
+assert (a = "nzbzad");;
+
+assert(is_empty b = true);;
+assert (try let _=delete_min b in false with Empty -> true);;
