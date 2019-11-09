@@ -18,7 +18,7 @@ let length node =
 
 (*  dla dwoch wierzcholkow (a i b) w drzewie zwraca pare (a, b),
 		gdzie dlugosc najkrotszej sciezki wychodzacej z a jest mniejsza od -||- b  *)
-let get_smaller_length a b = if length a > length b then (b, a) else (a, b)
+let get_smaller_length a b = if length a >= length b then (b, a) else (a, b)
 
 (*  zwraca wynik polaczenia dwoch drzew a i b  *)
 let rec merge a b = 
@@ -27,7 +27,7 @@ let rec merge a b =
 	(Null, Node(_, _, _, _)) -> b |
 	(Node(_, _, _, _), Null) -> a |
 	(Node(node_left_a, node_right_a, value_a, _), Node(node_left_b, node_right_b, value_b, _)) ->
-		if value_a < value_b
+		if value_a <= value_b
 			then
 				let res = merge (node_right_a) b
 				in  
@@ -38,7 +38,7 @@ let rec merge a b =
 				in  
 					let (min, max) = get_smaller_length res (node_left_b)
 					in Node(max, min, value_b, (length min) + 1)
-;;
+
 
 
 (*---------------------FUNKCJE Z ZADANIA---------------------*)
@@ -88,5 +88,5 @@ assert (a = "nzbza");;
 let (a,b) = delete_min b;;
 assert (a = "nzbzad");;
 
-assert(is_empty b = true);;
+assert(is_empty b);;
 assert (try let _=delete_min b in false with Empty -> true);;
